@@ -7,6 +7,8 @@ from flask_testing import TestCase
 from project import create_app
 
 app = create_app()
+
+
 class TestDevelopmentConfig(TestCase):
     def create_app(self):
         app.config.from_object('project.config.DevelopmentConfig')
@@ -33,6 +35,7 @@ class TestTestingConfig(TestCase):
             app.config['SQLALCHEMY_DATABASE_URI'] ==
             os.environ.get('DATABASE_TEST_URL')
         )
+
 
 class TestProductionConfig(TestCase):
     def create_app(self):
