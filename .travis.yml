@@ -13,11 +13,9 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 before_script:
-  - docker-compose -f docker-compose.yml up --build -d
+  - docker-compose -f docker-compose.yml up  -d --build
   - chmod +x waitport.sh
-  - ./waitport.sh 5435
-  - ./waitport.sh 5001
-  - ./waitport.sh 80
+  - sleep 10
 
 script:
   - docker-compose exec users python manage.py test
