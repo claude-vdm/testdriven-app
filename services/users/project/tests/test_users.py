@@ -48,21 +48,23 @@ class TestUserService(BaseTestCase):
         with self.client:
             response = self.client.post(
                 '/users',
-                data=json.dumps({'email': 'claudius@vdmza.com', 'password': 'greaterthaneight'}),
+                data=json.dumps({
+                    'email': 'claudius@vdmza.com',
+                    'password': 'greaterthaneight'}),
                 content_type='application/json'
             )
             data = json.loads(response.data.decode())
             self.assertEqual(response.status_code, 400)
             self.assertIn('Invalid payload.', data['message'])
             self.assertIn('fail', data['status'])
-    
+
     def test_add_user_invalid_json_keys_no_password(self):
         with self.client:
             response = self.client.post(
                 '/users',
                 data=json.dumps({
-                    'email':'claudius@vdmza.com',
-                    'name':'Claude'
+                    'email': 'claudius@vdmza.com',
+                    'name': 'Claude'
                 }),
                 content_type='application/json'
             )
@@ -161,7 +163,10 @@ class TestUserService(BaseTestCase):
         with self.client:
             response = self.client.post(
                 '/',
-                data=dict(username='michael', email='michael@sonotreal.com', password='greaterthaneight'),
+                data=dict(
+                    username='michael',
+                    email='michael@sonotreal.com',
+                    password='greaterthaneight'),
                 follow_redirects=True
             )
             self.assertEqual(response.status_code, 200)
